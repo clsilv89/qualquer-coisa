@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { PostType } from "@/models/post.interface";
 
 const apiClient = axios.create({
     baseURL: 'https://jsonplaceholder.typicode.com',
@@ -17,5 +18,8 @@ const requests = {
 };
 
 export const Post = {
-    getPosts: (): Promise<{}> => requests.get(`posts`),
+    getPosts: (): Promise<PostType[]> => requests.get(`posts`),
+    getAPost: (id: number): Promise<PostType> => requests.get(`posts/${id}`),
+    createPost: (post: PostType): Promise<PostType> => requests.post(`posts`, post),
+    deletePost: (id: number): Promise<void> => requests.delete(`posts/${id}`)
 };
